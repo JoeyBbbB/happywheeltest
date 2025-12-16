@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Wheels</title>
+
+<!-- Ruffle -->
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+  cursor: none;
+}
+
+#game {
+  width: 100%;
+  height: 100%;
+}
+</style>
+</head>
+<body>
+
+<div id="game">
+  <object
+    width="100%"
+    height="100%"
+    data="happy-wheels.swf">
+  </object>
+</div>
+
+<script>
+function forceFullscreen() {
+  const el = document.documentElement;
+  if (!document.fullscreenElement) {
+    el.requestFullscreen().catch(() => {});
+  }
+}
+
+// First click = fullscreen (browser rule)
+document.addEventListener("click", forceFullscreen, { once: true });
+
+// Re-enter fullscreen if exited
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    setTimeout(forceFullscreen, 50);
+  }
+});
+
+// Block common exits
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" || e.key === "F11") {
+    e.preventDefault();
+  }
+});
+</script>
+
+</body>
+</html>
